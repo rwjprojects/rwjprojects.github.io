@@ -43,55 +43,74 @@ html{font-size:18px}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:1rem;line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1040px;margin:0 auto;padding:32px 20px 72px}
 h1,h2,h3{font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;line-height:1.02;margin:0;text-wrap:balance;letter-spacing:-.01em}
-h1{font-size:clamp(44px,7vw,74px);font-weight:700;text-transform:uppercase}
-h2{font-size:clamp(30px,4vw,40px);font-weight:700;text-transform:uppercase;margin-top:56px}
-h3,.h3{font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;font-size:1.4rem;font-weight:600;line-height:1.05;margin:0;text-wrap:balance}
+h1{font-size:clamp(44px,7vw,74px);font-weight:700;text-transform:uppercase;margin-bottom:14px}
+h2{font-size:clamp(30px,4vw,40px);font-weight:700;text-transform:uppercase;margin-top:52px}
+h3{font-size:1.4rem;font-weight:600;line-height:1.05}
 p{margin:.6em 0;max-width:66ch}
 li{max-width:66ch}
 a{color:var(--sky)}
-a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .eyebrow{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .eyebrow span{white-space:nowrap}
 .dek{font-size:1.15rem;max-width:60ch}
 .dek b{color:var(--accent-ink)}
-.rule{height:6px;width:96px;background:var(--accent);margin:18px 0 22px;border-radius:3px}
 .muted{color:var(--muted)}
-.small{font-size:.85rem}
+.small{font-size:.9rem}
 
 .verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin-top:22px}
 .card{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);padding:16px 18px}
 .card h2{font-size:1.4rem;font-weight:600;text-transform:none;margin:0 0 6px;line-height:1.05}
 .card p{margin:0;font-size:.95rem}
+@media (min-width:900px){.verdict .card:nth-child(5){grid-column:span 2}}
+.jump{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin:14px 0 0;font-size:.9rem}
+.jump span{color:var(--muted);font-weight:600}
+.jump a{display:inline-block;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--sky);text-decoration:none;font-weight:600}
+.jump a:hover{border-color:var(--sky)}
 
-.matrix{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:22px}
-.cond{background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;break-inside:avoid}
-.cond .sky{height:34px}
-.cond h3{padding:10px 14px 0;font-size:1.3rem;text-transform:uppercase;letter-spacing:.01em}
-.cond .body{padding:8px 14px 14px;display:grid;gap:10px;font-size:.9rem;line-height:1.4}
-.cond .lead{font-weight:600;font-size:.95rem}
-.cond .row b{display:block;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.sw{display:inline-block;width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px;border:1px solid rgba(0,0,0,.25);box-shadow:inset 0 0 0 2px rgba(255,255,255,.35)}
-.tag{display:inline-block;font-size:.8rem;font-weight:600;padding:2px 10px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
-.tag.ok{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
-.tag.warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
-.tag.bad{background:var(--bad-soft);color:var(--bad);border-color:var(--bad)}
-.tag.mid{background:var(--sky-soft);color:var(--sky);border-color:var(--sky)}
-@media (max-width:900px){.matrix{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.matrix{grid-template-columns:1fr}}
+ol.check{counter-reset:c;list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px;max-width:72ch}
+ol.check li{counter-increment:c;background:var(--surface);border:1px solid var(--line);padding:12px 14px 12px 58px;position:relative;font-size:.95rem;max-width:none}
+ol.check li::before{content:counter(c);position:absolute;left:14px;top:11px;width:32px;height:32px;border-radius:50%;background:var(--accent);border:2px solid var(--accent);color:var(--num-ink);font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
 
 .dark3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:18px}
 .dark3 .lvl{background:var(--surface);border:1px solid var(--line);padding:14px 16px;font-size:.9rem}
 .dark3 .lvl .chip{height:14px;border-radius:7px;margin-bottom:10px;border:1px solid rgba(0,0,0,.15)}
 .dark3 .lvl h3{font-size:1.3rem;margin-bottom:4px}
 
+.two{display:grid;grid-template-columns:1fr 1.2fr;gap:22px;align-items:start}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+figure{margin:0;background:var(--surface);border:1px solid var(--line);padding:14px 16px 10px}
+figure svg{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{font-size:.9rem;color:var(--muted);margin-top:8px;max-width:75ch}
+.try{background:var(--accent-soft);border:1px solid var(--accent);padding:14px 18px;font-size:.95rem;margin-top:16px}
+.try h3{margin-bottom:4px}
+
+.keyrow{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.85rem;margin-top:14px;align-items:center}
+.keyrow .ki{display:inline-flex;gap:6px;align-items:baseline;white-space:nowrap}
+.tag{display:inline-block;font-size:.8rem;font-weight:600;padding:2px 10px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.tag.ok{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+.tag.warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.tag.bad{background:var(--bad-soft);color:var(--bad);border-color:var(--bad)}
+.tag.mid{background:var(--sky-soft);color:var(--sky);border-color:var(--sky)}
+
+.matrix{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:14px}
+.cond{background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;break-inside:avoid}
+.cond .sky{height:34px}
+.cond h3{padding:10px 14px 0;font-size:1.3rem;text-transform:uppercase;letter-spacing:.01em}
+.cond .scene{padding:4px 14px 0;font-size:.9rem;color:var(--muted);font-style:italic}
+.cond .body{padding:8px 14px 14px;display:grid;gap:10px;font-size:.95rem;line-height:1.4}
+.cond .lead{font-weight:600;font-size:.95rem}
+.cond .row b{display:block;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.sw{display:inline-block;width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px;border:1px solid rgba(0,0,0,.25);box-shadow:inset 0 0 0 2px rgba(255,255,255,.35)}
+@media (max-width:900px){.matrix{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.matrix{grid-template-columns:1fr}}
+
 .tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface);margin-top:18px}
-table{border-collapse:collapse;width:100%;min-width:620px;font-size:.9rem}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.95rem}
 caption{text-align:left;font-weight:600;padding:10px 13px 0;color:var(--muted);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
 th,td{text-align:left;vertical-align:top;padding:11px 13px;border-bottom:1px solid var(--line)}
 th{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);font-weight:600}
 tr:last-child td{border-bottom:0}
 td.k{font-weight:600;min-width:11em}
-td.k .sw{white-space:nowrap}
 @media (max-width:640px){
   table{min-width:0}
   thead{position:absolute;left:-9999px}
@@ -103,41 +122,28 @@ td.k .sw{white-space:nowrap}
   td.k{font-size:1.05rem;white-space:normal;padding-bottom:4px}
   td.k::before{content:none}
 }
-
-figure{margin:22px 0;background:var(--surface);border:1px solid var(--line);padding:14px 16px 10px}
-figure svg{max-width:100%;height:auto;display:block;margin:0 auto}
-figcaption{font-size:.85rem;color:var(--muted);margin-top:8px;max-width:75ch}
-.two{display:grid;grid-template-columns:1fr 1.2fr;gap:22px;align-items:start}
-@media (max-width:820px){.two{grid-template-columns:1fr}}
-.try{background:var(--accent-soft);border:1px solid var(--accent);padding:14px 18px;font-size:.95rem;margin-top:16px}
-.try h3{margin-bottom:4px}
 blockquote{margin:14px 0;padding:10px 16px;border-left:4px solid var(--sky);background:var(--surface);font-size:.9rem;max-width:66ch}
 blockquote cite{display:block;font-style:normal;font-size:.8rem;color:var(--muted);margin-top:4px}
 
-.scen{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px;margin-top:18px}
-.scen .s{background:var(--surface);border:1px solid var(--line);padding:14px 16px;font-size:.9rem}
-.scen .s h3{font-size:1.25rem;text-transform:uppercase;margin-bottom:6px}
-.scen .s .wear{margin:6px 0;padding:8px 10px;background:var(--surface-2);border-left:4px solid var(--accent)}
-
-ol.check{counter-reset:c;list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px;max-width:72ch}
-ol.check li{counter-increment:c;background:var(--surface);border:1px solid var(--line);padding:12px 14px 12px 58px;position:relative;font-size:.95rem;max-width:none}
-ol.check li::before{content:counter(c);position:absolute;left:14px;top:11px;width:32px;height:32px;border-radius:50%;background:var(--accent);border:2px solid var(--accent);color:var(--num-ink);font-family:'Barlow Condensed',Arial,sans-serif;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
-
-.keyrow{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.85rem;margin-top:12px;align-items:center}
-.keyrow .ki{display:inline-flex;gap:6px;align-items:baseline;flex-wrap:wrap}
-.src{font-size:.85rem;columns:2;column-gap:28px;padding-left:20px}
+details{margin-top:18px;background:var(--surface);border:1px solid var(--line);padding:0 16px}
+summary{cursor:pointer;padding:12px 0;font-weight:600;font-size:.95rem;color:var(--sky)}
+details[open] summary{border-bottom:1px solid var(--line)}
+.src{font-size:.85rem;columns:2;column-gap:28px;padding-left:20px;margin:14px 0}
 .src li{break-inside:avoid;margin-bottom:8px;max-width:none}
 @media (max-width:720px){.src{columns:1}}
-footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
 @media print{
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  html{font-size:12.5px}
+  html{font-size:11px}
   body{background:#fff;color:#000}
   .wrap{padding:0;max-width:none}
   .matrix{grid-template-columns:repeat(5,1fr)}
   h2{margin-top:26px;break-after:avoid}
-  figure,.cond,.card,.s,.lvl,blockquote,ol.check li{break-inside:avoid}
+  .jump{display:none}
+  figure,.card,.lvl,blockquote,ol.check li{break-inside:avoid}
   ol.check li::before{color:var(--accent-ink);background:#fff}
+  #pilots,#pilots+p,#pilots+p+blockquote{display:none}
+  footer{break-before:avoid}
   a{color:#000;text-decoration:none}
 }
 </style>
@@ -145,101 +151,45 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);font-si
 <div class="wrap">
   <div class="eyebrow">Field handout for RC pilots · <span>August 2026</span></div>
   <h1>Which Sunglasses<br>for Which Sky</h1>
-  <div class="rule"></div>
-  <p class="dek">We got talking at the field about polarized lenses, lens colors, and why the plane sometimes goes blurry. Here's what's <b>proven</b>, what's <b>likely</b>, and what's just the salesman talking. Plain English.</p>
+  <p class="dek">You asked whether to get polarized, and what color. Short answer: <b>brown or gray, normal dark, not polarized.</b> Here's why, what the evidence actually says, and what to do when <a href="#blurry">the plane goes blurry</a>.</p>
+  <nav class="jump" aria-label="Jump to"><span>Jump to:</span> <a href="#order">Order a pair</a> <a href="#bysky">By sky</a> <a href="#blurry">Blurry plane</a> <a href="#colors">Lens colors</a></nav>
 
   <div class="verdict">
-    <div class="card"><h2>1. How dark matters more than what color.</h2><p>Wear normal dark sunglasses, gray or brown. Skip the super-dark "glacier" kind: past a point, darker means less detail. That's the one rule the FAA and the eye doctors agree on.</p></div>
-    <div class="card"><h2>2. Brown or copper is our pick for a plane on blue sky.</h2><p>Brown cuts the blue haze, and a light-colored plane may stand out a little more. Gray is just as good for most people. Blue lenses do nothing for you.</p></div>
-    <div class="card"><h2>3. Don't pay extra for polarized.</h2><p>Polarized is for glare off water and roads. Against the sky it darkens only one stripe of blue. It can black out your transmitter screen, and the FAA says it hides the glint off a wing.</p></div>
-    <div class="card"><h2>4. Cloudy day? Light yellow, or no glasses.</h2><p>A light yellow pair makes a gray day <em>feel</em> brighter. It won't make the plane any sharper, but it's comfortable and cheap.</p></div>
-    <div class="card"><h2>5. "Blink and it clears up" is dry eyes, not your glasses.</h2><p>Staring up into wind and sun dries your eyes out. Eye drops, a wrap-around frame and a hat brim fix more than any lens color will. See "The plane goes blurry" below.</p></div>
+    <div class="card"><h2>1. Darkness matters more than color.</h2><p>Wear normal dark sunglasses, gray or brown. Skip the very dark "glacier" kind: past a point, darker means less detail. The FAA and the eye doctors agree on this one.</p></div>
+    <div class="card"><h2>2. Color: brown or copper. Gray is fine too.</h2><p>Brown trims the blue haze and is what pilots, hawk-watchers and clay shooters reach for. Gray keeps colors true. Either works. Blue lenses do nothing for you.</p></div>
+    <div class="card"><h2>3. Don't pay extra for polarized.</h2><p>Polarized lenses kill glare off water and roads. The sky isn't water. They can black out your transmitter screen, and the FAA says they hide the glint off a wing.</p></div>
+    <div class="card"><h2>4. Gray day? Light yellow, or no glasses.</h2><p>Yellow is the one color a lab test showed helps a bright object stand out against blue sky, but it throws colors off and makes everything look brighter than it is. Save it for dull days, as a cheap second pair.</p></div>
+    <div class="card"><h2>5. "Blink and it clears" is dry eyes, not glasses.</h2><p>Staring up into wind and sun dries your eyes out. Eye drops, a wrap-around frame and a hat brim fix more than any lens color will. Details in <a href="#blurry">"The plane goes blurry"</a> below.</p></div>
   </div>
+
+  <h2 id="order">If you just want to order a pair</h2>
+  <ol class="check">
+    <li><b>Tick "UV protection"</b> (sometimes called UV400). Usually free, and nothing to do with darkness. Never wear dark lenses without it.</li>
+    <li><b>Say no to polarized.</b></li>
+    <li><b>Color: brown or copper.</b> Gray if you prefer true colors. Not blue.</li>
+    <li><b>Darkness: "Dark".</b> If the site asks for a tint percentage instead, pick 80. On those sites, 80% means the lens blocks 80% of the light, which is normal sunglasses dark.</li>
+    <li><b>Use your current distance prescription</b>, from an exam in the last couple of years.</li>
+    <li><b>Pick polycarbonate lenses</b>, the shatter-resistant plastic. Props and crashes throw things.</li>
+    <li><b>A big wrap-around lens</b>, or a frame that hugs your face, to keep wind off your eyes.</li>
+    <li><b>Optional second pair for gray days:</b> light yellow, the "Light" option.</li>
+    <li><b>In the flight box:</b> eye drops and a ball cap.</li>
+  </ol>
 
   <h2>How dark is "dark"?</h2>
-  <p>Sunglasses come in roughly three strengths. Stores label them "category 3" or "80% tint". You only need that number if you order online (see the checklist). Think of it like this:</p>
+  <p>Three strengths. Stores call them things like "category 3" or "80% tint"; the checklist above covers that. In plain terms:</p>
   <div class="dark3">
-    <div class="lvl"><div class="chip" style="background:linear-gradient(90deg,#3a3a3a,#5a5a5a)" aria-hidden="true"></div><h3>Dark</h3>Everyday sunglasses. The pair you'd drive with at noon in July. <span class="muted">Sunny days.</span></div>
-    <div class="lvl"><div class="chip" style="background:linear-gradient(90deg,#8a7a66,#b09a80)" aria-hidden="true"></div><h3>Medium</h3>Noticeably lighter. People can still see your eyes through them. <span class="muted">Partly cloudy and hazy-bright days.</span></div>
-    <div class="lvl"><div class="chip" style="background:linear-gradient(90deg,#e6c66a,#f2dc9a)" aria-hidden="true"></div><h3>Light</h3>Barely tinted, like yellow shooting glasses or safety glasses. <span class="muted">Gray, overcast days.</span></div>
+    <div class="lvl"><div class="chip" style="background:linear-gradient(90deg,#3a3a3a,#5a5a5a)" aria-hidden="true"></div><h3>Dark</h3>Everyday sunglasses. The pair you'd drive with at noon in July. <span class="muted">Sunny days. Your main pair.</span></div>
+    <div class="lvl"><div class="chip" style="background:linear-gradient(90deg,#8a7a66,#b09a80)" aria-hidden="true"></div><h3>Medium</h3>Noticeably lighter; people can still see your eyes. <span class="muted">Nice for hazy or partly cloudy days, but Dark works there too.</span></div>
+    <div class="lvl"><div class="chip" style="background:linear-gradient(90deg,#e6c66a,#f2dc9a)" aria-hidden="true"></div><h3>Light</h3>Barely tinted, like yellow shooting glasses. <span class="muted">Gray, overcast days.</span></div>
   </div>
   <p class="small muted" style="margin-top:12px">The FAA's rule of thumb: dark enough that you're not squinting, never so dark that things lose detail. If you can't read your transmitter through them in the shade, they're too dark.</p>
-
-  <h2>What to wear, by sky</h2>
-  <div class="matrix">
-    <div class="cond">
-      <div class="sky" style="background:var(--sun-sky)" aria-hidden="true"></div>
-      <h3>Bright sun, blue sky</h3>
-      <div class="body">
-        <div class="lead"><i class="sw" style="background:#6B4A2B" aria-hidden="true"></i>Brown, Dark strength</div>
-        <div class="row"><b>Polarized?</b>Not needed</div>
-        <div class="row"><b>Why</b>Dark gray or brown: proven. Brown's small edge on blue sky: likely. A white or yellow plane may pop a little more.</div>
-        <div class="row"><b>How sure</b><span class="tag ok">Proven</span> <span class="tag mid">Likely</span></div>
-      </div>
-    </div>
-    <div class="cond">
-      <div class="sky" style="background:var(--haze-sky)" aria-hidden="true"></div>
-      <h3>Bright but hazy</h3>
-      <div class="body">
-        <div class="lead"><i class="sw" style="background:#7A5A33" aria-hidden="true"></i>Brown, Dark or Medium</div>
-        <div class="row"><b>Polarized?</b>No. Haze cancels it out.</div>
-        <div class="row"><b>Why</b>Pilots report brown helps in haze. "Haze-cutting" yellow was tested by the Air Force: no difference.</div>
-        <div class="row"><b>How sure</b><span class="tag mid">Likely</span></div>
-      </div>
-    </div>
-    <div class="cond">
-      <div class="sky" style="background:var(--partly-sky)" aria-hidden="true"></div>
-      <h3>Partly cloudy</h3>
-      <div class="body">
-        <div class="lead"><i class="sw" style="background:#A8733B" aria-hidden="true"></i>Brown, Medium strength</div>
-        <div class="row"><b>Polarized?</b>No. Does nothing against a cloud.</div>
-        <div class="row"><b>Why</b>Light enough to see the plane against white cloud, dark enough for the blue gaps.</div>
-        <div class="row"><b>How sure</b><span class="tag warn">Opinion</span></div>
-      </div>
-    </div>
-    <div class="cond">
-      <div class="sky" style="background:var(--over-sky)" aria-hidden="true"></div>
-      <h3>Overcast, gray</h3>
-      <div class="body">
-        <div class="lead"><i class="sw" style="background:#D9A24A" aria-hidden="true"></i>Light yellow, Light strength — or no sunglasses</div>
-        <div class="row"><b>Polarized?</b>No. Pointless under cloud.</div>
-        <div class="row"><b>Why</b>Yellow makes it feel brighter and takes the flat look off the sky. It doesn't make the plane sharper.</div>
-        <div class="row"><b>How sure</b><span class="tag warn">Opinion</span></div>
-      </div>
-    </div>
-    <div class="cond">
-      <div class="sky" style="background:var(--low-sky)" aria-hidden="true"></div>
-      <h3>Sun low, morning or evening</h3>
-      <div class="body">
-        <div class="lead"><i class="sw" style="background:#4A4A4A" aria-hidden="true"></i>Gray or brown, Dark, plus a hat brim</div>
-        <div class="row"><b>Polarized?</b>No. Makes the sky patchy overhead.</div>
-        <div class="row"><b>Why</b>No lens fixes a plane between you and a low sun. Fly the other side of the field.</div>
-        <div class="row"><b>How sure</b><span class="tag ok">Proven</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="keyrow"><b>How sure:</b>
-    <span class="ki"><span class="tag ok">Proven</span><span>= official guidance or a lab test</span></span>
-    <span class="ki"><span class="tag mid">Likely</span><span>= some evidence, plus what experienced people do</span></span>
-    <span class="ki"><span class="tag warn">Opinion</span><span>= what pilots and shooters say works; never tested</span></span>
-    <span class="ki"><span class="tag bad">No proof</span><span>= nothing behind it</span></span>
-  </div>
-
-  <h2>Real Saturdays</h2>
-  <div class="scen">
-    <div class="s"><h3>10 a.m., blue sky, white foamie</h3>Sun's high, sky is deep blue, the plane is white.<div class="wear"><b>Wear:</b> brown, Dark. Stand with the sun behind you.</div>Brown may make the white plane stand out a touch more against the blue. Gray is fine if that's what you own.</div>
-    <div class="s"><h3>Overcast morning</h3>Flat gray sky; everything looks the same shade.<div class="wear"><b>Wear:</b> light yellow, Light strength. Or leave the sunglasses in the truck.</div>Dark glasses make a dim plane dimmer. If you put your normal dark pair on and the plane goes soft, that's why.</div>
-    <div class="s"><h3>6 p.m., sun dropping in the west</h3>The plane flashes out of sight every time it crosses the sun.<div class="wear"><b>Wear:</b> gray or brown, Dark, and a ball cap.</div>No lens fixes the sun line. Keep the pattern on the east side and use the brim.</div>
-    <div class="s"><h3>The plane keeps going blurry</h3>Blinking helps for a few seconds? That's dry eyes. Goes soft only when it's alone in empty blue sky, sharp again near a cloud or the tree line? That's your eye letting go of focus.<div class="wear"><b>Do:</b> eye drops before you fly, blink hard on purpose; glance at the tree line, then back at the plane.</div>Both are covered in "The plane goes blurry" below.</div>
-  </div>
 
   <h2>Polarized, in plain English</h2>
   <div class="two">
     <div>
-      <p><b>What it's for:</b> glare bouncing off flat things. Water, wet roads, a car hood. Fishermen love it for good reason.</p>
-      <p><b>The sky isn't a lake.</b> Blue sky only has that kind of glare in one curved stripe, a quarter-turn away from the sun. Polarized lenses darken that stripe and leave the rest alone. So the plane stands out a bit more in one part of the sky and no more anywhere else. And as it crosses, the sky behind it changes brightness. Photographers use the same trick and complain about the "ugly bands" it makes.</p>
-      <p><b>Clouds and haze turn it off.</b> Under overcast, a polarized lens is just a dark lens you paid extra for.</p>
-      <p><b>Two real downsides.</b> Tilt your head and it blacks out screens: your transmitter, your phone. And it dims the sun flash off a wing, which a lot of us use to tell which way the plane is pointing. The FAA tells full-scale pilots not to wear them for exactly those reasons.</p>
+      <p><b>What it's for:</b> glare bouncing off flat things. Water, wet roads, a car hood.</p>
+      <p><b>The sky isn't a lake.</b> Blue sky only has that kind of glare in one curved stripe, a quarter-turn away from the sun (see the picture). A polarized lens darkens that stripe and leaves the rest of the sky alone. So the plane stands out a bit more in one part of the sky, no more anywhere else, and the sky behind it changes brightness as it crosses. Clouds and haze scramble the effect completely, so under overcast a polarized lens is just a dark lens.</p>
+      <p><b>Two real downsides.</b> Tilt your head and it blacks out screens: your transmitter, your phone. And it dims the sun flash off a wing, which many of us use to tell which way the plane is pointing. The FAA tells full-scale pilots not to wear polarized for those reasons.</p>
     </div>
     <figure>
       <svg viewBox="0 0 420 250" role="img" aria-label="Sky dome seen from the pilot: the sun low on the left; a stripe of sky a quarter-turn from the sun is where a polarized lens darkens the sky; toward and away from the sun there is little or no effect; clouds are not affected.">
@@ -251,100 +201,145 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);font-si
         <path d="M150 210 A90 190 0 0 1 270 210" fill="none" style="stroke:var(--sky)" stroke-width="26" opacity=".6"/>
         <path d="M150 210 A90 190 0 0 1 270 210" fill="none" style="stroke:var(--sky)" stroke-width="2"/>
         <circle cx="46" cy="150" r="14" fill="#E0A43A" stroke="currentColor" stroke-width="1"/>
-        <text x="46" y="186" font-size="15" text-anchor="middle" fill="currentColor">sun (low)</text>
+        <text x="46" y="186" font-size="16" text-anchor="middle" fill="currentColor">sun (low)</text>
         <circle cx="210" cy="204" r="4" fill="currentColor"/>
-        <text x="210" y="230" font-size="15" text-anchor="middle" fill="currentColor">you</text>
-        <path d="M66 138 A150 150 0 0 1 196 30" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#ah)"/>
-        <text x="156" y="50" font-size="15" fill="currentColor">a quarter-turn from the sun</text>
-        <text x="210" y="16" font-size="16" text-anchor="middle" fill="currentColor" font-weight="600">the one stripe a polarized lens darkens</text>
-        <text x="335" y="150" font-size="14" text-anchor="middle" fill="currentColor">little or no effect</text>
-        <text x="335" y="167" font-size="14" text-anchor="middle" fill="currentColor">away from the sun</text>
-        <text x="108" y="230" font-size="14" text-anchor="middle" fill="currentColor">no effect toward the sun</text>
+        <text x="210" y="230" font-size="16" text-anchor="middle" fill="currentColor">you</text>
+        <path d="M66 138 A150 150 0 0 1 186 36" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#ah)"/>
+        <text x="198" y="48" font-size="16" fill="currentColor">a quarter-turn</text>
+        <text x="210" y="16" font-size="17" text-anchor="middle" fill="currentColor" font-weight="600">the one stripe a polarized lens darkens</text>
+        <text x="356" y="186" font-size="15" text-anchor="middle" fill="currentColor">little/no effect</text>
+        <text x="356" y="203" font-size="15" text-anchor="middle" fill="currentColor">away from sun</text>
+        <text x="94" y="230" font-size="15" text-anchor="middle" fill="currentColor">no effect toward the sun</text>
         <path d="M300 64 q8-16 24-10 q10-14 26-4 q16-2 18 12 q14 4 8 16 H298 q-10-6-0-14z" fill="none" stroke="currentColor" stroke-width="1.2"/>
-        <text x="336" y="100" font-size="14" text-anchor="middle" fill="currentColor">clouds: no effect</text>
+        <text x="336" y="100" font-size="15" text-anchor="middle" fill="currentColor">clouds: no effect</text>
       </svg>
-      <figcaption>Sun low in the morning or evening: the stripe runs straight overhead. Sun high at noon: the stripe drops to the horizon all the way around. Everywhere else, and under any cloud, a polarized lens is just a dark lens.</figcaption>
+      <figcaption>Sun low in the morning or evening: the stripe runs straight overhead. Sun high at noon: the stripe sits down near the horizon all the way around.</figcaption>
     </figure>
   </div>
-  <div class="try"><h3>10-second test: are my sunglasses polarized?</h3>Hold your phone up with the screen on and look at it through one lens. Turn the phone slowly sideways. If the screen goes dark at one angle and comes back at another, they're polarized. That's what will happen to your transmitter screen, too.</div>
+  <div class="try"><h3>10-second test: are my sunglasses polarized?</h3>Look at your phone screen through one lens and turn the phone slowly sideways. If the screen goes dark at one angle and comes back at another, they're polarized. Your transmitter screen will do the same.</div>
 
-  <h2>Lens colors, one line each</h2>
+  <h2 id="bysky">What to wear, by sky</h2>
+  <p><b>Polarized: no, in every one of these.</b> Clear blue: not needed. Haze and cloud scramble it. Low sun: patchy sky overhead.</p>
+  <div class="keyrow"><b>How sure we are:</b>
+    <span class="ki"><span class="tag ok">Proven</span><span>= official guidance or a lab test</span></span>
+    <span class="ki"><span class="tag mid">Likely</span><span>= some evidence, plus what experienced people do</span></span>
+    <span class="ki"><span class="tag warn">Mixed</span><span>= tested, results cut both ways</span></span>
+    <span class="ki"><span class="tag warn">Opinion</span><span>= what pilots and shooters say; never tested</span></span>
+    <span class="ki"><span class="tag bad">No proof</span><span>= nothing behind it</span></span>
+  </div>
+  <div class="matrix">
+    <div class="cond">
+      <div class="sky" style="background:var(--sun-sky)" aria-hidden="true"></div>
+      <h3>Bright sun, blue sky</h3>
+      <div class="scene">Noon, deep blue, white foamie.</div>
+      <div class="body">
+        <div class="lead"><i class="sw" style="background:#6B4A2B" aria-hidden="true"></i>Brown, Dark. Sun behind you.</div>
+        <div class="row"><b>Why</b>Dark gray or brown is the proven part. Brown's edge over gray is the likely part.</div>
+        <div class="row"><b>How sure</b><span class="tag ok">Proven</span> <span class="tag mid">Likely</span></div>
+      </div>
+    </div>
+    <div class="cond">
+      <div class="sky" style="background:var(--haze-sky)" aria-hidden="true"></div>
+      <h3>Bright but hazy</h3>
+      <div class="scene">Milky July afternoon, no real horizon.</div>
+      <div class="body">
+        <div class="lead"><i class="sw" style="background:#7A5A33" aria-hidden="true"></i>Brown, Dark or Medium.</div>
+        <div class="row"><b>Why</b>Pilots report brown helps in haze. "Haze-cutting" yellow was tested by the Air Force: no difference.</div>
+        <div class="row"><b>How sure</b><span class="tag mid">Likely</span></div>
+      </div>
+    </div>
+    <div class="cond">
+      <div class="sky" style="background:var(--partly-sky)" aria-hidden="true"></div>
+      <h3>Partly cloudy</h3>
+      <div class="scene">Plane crossing from blue to white cloud and back.</div>
+      <div class="body">
+        <div class="lead"><i class="sw" style="background:#A8733B" aria-hidden="true"></i>Brown, Medium (Dark is fine).</div>
+        <div class="row"><b>Why</b>Light enough to keep the plane visible against white cloud, dark enough for the blue gaps.</div>
+        <div class="row"><b>How sure</b><span class="tag warn">Opinion</span></div>
+      </div>
+    </div>
+    <div class="cond">
+      <div class="sky" style="background:var(--over-sky)" aria-hidden="true"></div>
+      <h3>Overcast, gray</h3>
+      <div class="scene">Flat gray morning, everything the same shade.</div>
+      <div class="body">
+        <div class="lead"><i class="sw" style="background:#D9A24A" aria-hidden="true"></i>Light yellow, Light. Or no sunglasses.</div>
+        <div class="row"><b>Why</b>Yellow makes a dull sky feel brighter. Your normal dark pair makes a dim plane dimmer.</div>
+        <div class="row"><b>How sure</b><span class="tag warn">Mixed</span></div>
+      </div>
+    </div>
+    <div class="cond">
+      <div class="sky" style="background:var(--low-sky)" aria-hidden="true"></div>
+      <h3>Sun low, morning or evening</h3>
+      <div class="scene">6 p.m., plane vanishes each time it crosses the sun.</div>
+      <div class="body">
+        <div class="lead"><i class="sw" style="background:#4A4A4A" aria-hidden="true"></i>Gray or brown, Dark, plus a hat brim.</div>
+        <div class="row"><b>Why</b>No lens fixes a plane between you and a low sun. Keep the pattern on the other side of the field.</div>
+        <div class="row"><b>How sure</b><span class="tag ok">Proven</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="colors">Lens colors, one line each</h2>
   <div class="tablewrap">
     <table>
       <caption>Lens colors</caption>
       <thead><tr><th scope="col">Color</th><th scope="col">Good for</th><th scope="col">Bottom line</th><th scope="col">How sure</th></tr></thead>
       <tbody>
-        <tr><td class="k" data-label="Color"><i class="sw" style="background:#4A4A4A" aria-hidden="true"></i>Gray</td><td data-label="Good for">Everything. True colors, no surprises.</td><td data-label="Bottom line">The safe choice. The FAA's first pick.</td><td data-label="How sure"><span class="tag ok">Proven</span></td></tr>
-        <tr><td class="k" data-label="Color"><i class="sw" style="background:#6B4A2B" aria-hidden="true"></i>Brown / copper</td><td data-label="Good for">A plane against blue sky; bright haze.</td><td data-label="Bottom line"><b>Our pick.</b> Same as gray at worst, a little better on blue sky at best.</td><td data-label="How sure"><span class="tag mid">Likely</span></td></tr>
+        <tr><td class="k" data-label="Color"><i class="sw" style="background:#4A4A4A" aria-hidden="true"></i>Gray</td><td data-label="Good for">Everything. True colors.</td><td data-label="Bottom line">The safe choice and the FAA's first pick.</td><td data-label="How sure"><span class="tag ok">Proven</span></td></tr>
+        <tr><td class="k" data-label="Color"><i class="sw" style="background:#6B4A2B" aria-hidden="true"></i>Brown / copper</td><td data-label="Good for">A plane against blue sky; bright haze.</td><td data-label="Bottom line"><b>Our pick.</b> Never tested on its own; in the lab, brown matched gray. Pilots, hawk-watchers and shooters prefer it for sky targets.</td><td data-label="How sure"><span class="tag mid">Likely</span></td></tr>
         <tr><td class="k" data-label="Color"><i class="sw" style="background:#5E6B45" aria-hidden="true"></i>Gray-green (Ray-Ban G-15)</td><td data-label="Good for">Same jobs as brown, a touch less warm.</td><td data-label="Bottom line">Fine. Same family.</td><td data-label="How sure"><span class="tag mid">Likely</span></td></tr>
-        <tr><td class="k" data-label="Color"><i class="sw" style="background:#E0B13C" aria-hidden="true"></i>Light yellow</td><td data-label="Good for">Gray overcast days, as a light lens.</td><td data-label="Bottom line">Makes dull days feel brighter. Does <em>not</em> cut haze (the Air Force tested it) and throws colors off. A cheap second pair, not your main pair.</td><td data-label="How sure"><span class="tag warn">Opinion</span></td></tr>
+        <tr><td class="k" data-label="Color"><i class="sw" style="background:#E0B13C" aria-hidden="true"></i>Light yellow</td><td data-label="Good for">Gray overcast days, as a light lens.</td><td data-label="Bottom line">The only color a lab test showed helps a bright object stand out against blue sky, but it throws colors off, makes everything look brighter than it is, and did nothing in an Air Force haze test. A cheap second pair, not your main pair.</td><td data-label="How sure"><span class="tag warn">Mixed</span></td></tr>
         <tr><td class="k" data-label="Color"><i class="sw" style="background:#C9607A" aria-hidden="true"></i>Rose / red</td><td data-label="Good for">Clay shooters use it to knock back green backgrounds.</td><td data-label="Bottom line">Might help a plane over the tree line. Nobody has tested it. Try before you buy.</td><td data-label="How sure"><span class="tag warn">Opinion</span></td></tr>
-        <tr><td class="k" data-label="Color"><i class="sw" style="background:#3E6EA8" aria-hidden="true"></i>Blue</td><td data-label="Good for">Looking cool.</td><td data-label="Bottom line">Blocks yellow and orange, the colors of most planes and of the sun glint. Nothing backs it. Skip.</td><td data-label="How sure"><span class="tag bad">No proof</span></td></tr>
-        <tr><td class="k" data-label="Color"><i class="sw" style="background:linear-gradient(135deg,#9FB3C4,#E8EEF3)" aria-hidden="true"></i>Mirror coating</td><td data-label="Good for">Makes any lens darker.</td><td data-label="Bottom line">Only matters for darkness. Easy to end up too dark.</td><td data-label="How sure">—</td></tr>
-        <tr><td class="k" data-label="Color"><i class="sw" style="background:linear-gradient(180deg,#3A3A3A,#BFBFBF)" aria-hidden="true"></i>Transitions / gradient</td><td data-label="Good for">One pair for everything.</td><td data-label="Bottom line">Transitions still tint under cloud (UV gets through) and take a minute or more to fade back, so you don't control the darkness. A gradient lens (dark top, lighter bottom) is handy for reading the transmitter.</td><td data-label="How sure">—</td></tr>
+        <tr><td class="k" data-label="Color"><i class="sw" style="background:#3E6EA8" aria-hidden="true"></i>Blue</td><td data-label="Good for">Fashion.</td><td data-label="Bottom line">Blocks yellow and orange, the colors of most planes and of the sun glint. Nothing backs it. Skip.</td><td data-label="How sure"><span class="tag bad">No proof</span></td></tr>
+        <tr><td class="k" data-label="Color"><i class="sw" style="background:linear-gradient(135deg,#9FB3C4,#E8EEF3)" aria-hidden="true"></i>Mirror coating</td><td data-label="Good for">Cutting more light.</td><td data-label="Bottom line">Changes nothing but the darkness. Easy to end up too dark.</td><td data-label="How sure">—</td></tr>
+        <tr><td class="k" data-label="Color"><i class="sw" style="background:linear-gradient(180deg,#3A3A3A,#BFBFBF)" aria-hidden="true"></i>Transitions / gradient</td><td data-label="Good for">One pair for everything.</td><td data-label="Bottom line">Transitions still tint under cloud (UV gets through) and take a minute or more to fade back, so you don't control the darkness. A gradient lens, dark on top and lighter at the bottom, is handy for reading the transmitter.</td><td data-label="How sure">—</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h2>"The plane goes blurry": five causes, five fixes</h2>
+  <h2 id="blurry">"The plane goes blurry": five causes, five fixes</h2>
   <p>Same complaint, different reasons. Each one has a tell.</p>
   <div class="tablewrap">
     <table>
       <caption>Blurry plane</caption>
-      <thead><tr><th scope="col">What's going on</th><th scope="col">You'll notice</th><th scope="col">What to do</th><th scope="col">Sunglasses help?</th></tr></thead>
+      <thead><tr><th scope="col">What's going on</th><th scope="col">You'll notice</th><th scope="col">What to do</th><th scope="col">Do sunglasses help?</th></tr></thead>
       <tbody>
-        <tr><td class="k" data-label="What's going on">Dry eyes. Concentrating makes you blink less, and looking up opens your eyes wider, so they dry faster.</td><td data-label="You'll notice">A blink clears it for a few seconds. Worse in wind and late in a session.</td><td data-label="What to do">Eye drops ("artificial tears") before and during flying. Blink hard on purpose. Wrap-around frame. Hat brim. If drops don't cut it, see an eye doctor.</td><td data-label="Sunglasses help?"><span class="tag warn">Partly</span>. The wrap shape blocks wind. Color does nothing.</td></tr>
-        <tr><td class="k" data-label="What's going on">Your eye lets go of focus in empty sky</td><td data-label="You'll notice">Blurry when the plane is alone in clear blue; sharp when it passes a cloud or the trees.</td><td data-label="What to do">Glance at the far tree line, then back at the plane. Keep it against terrain when you can.</td><td data-label="Sunglasses help?"><span class="tag bad">No</span></td></tr>
-        <tr><td class="k" data-label="What's going on">Glare and squinting</td><td data-label="You'll notice">Worse near the sun or in bright haze. Eyes water.</td><td data-label="What to do">Dark gray or brown, a brim, and stay off the sun line.</td><td data-label="Sunglasses help?"><span class="tag ok">Yes</span>. This is their job.</td></tr>
-        <tr><td class="k" data-label="What's going on">Your prescription has drifted</td><td data-label="You'll notice">Blurry all the time. Blinking doesn't help; squinting does.</td><td data-label="What to do">Get an eye exam (every one to three years after 55 if your eyes are otherwise healthy). Prescription sunglasses, or contacts plus plain sunglasses.</td><td data-label="Sunglasses help?"><span class="tag warn">Only with your prescription in them</span></td></tr>
-        <tr><td class="k" data-label="What's going on">Early cataract</td><td data-label="You'll notice">General haze, halos, glare bothers you more than it used to, colors look flat. Very common after 60.</td><td data-label="What to do">Eye exam. Good UV sunglasses and a brim for comfort. Surgery when it starts limiting you.</td><td data-label="Sunglasses help?"><span class="tag warn">Partly</span>. Glare yes, haze no.</td></tr>
+        <tr><td class="k" data-label="What's going on">Dry eyes</td><td data-label="You'll notice">A blink clears it for a few seconds. Worse in wind and late in a session. (Concentrating makes you blink less, and looking up opens your eyes wider, so they dry faster.)</td><td data-label="What to do">Eye drops ("artificial tears") before and during flying. Blink hard now and then. Wrap-around frame. Hat brim. If drops don't do it, see an eye doctor.</td><td data-label="Sunglasses help"><b>Partly.</b> The wrap shape blocks wind. Color does nothing.</td></tr>
+        <tr><td class="k" data-label="What's going on">Empty-sky focus</td><td data-label="You'll notice">Blurry when the plane is alone in clear blue; sharp when it passes a cloud or the trees. Your eye lets go of focus with nothing to lock onto. Full-scale pilots train for this; their manuals call it "empty-field myopia".</td><td data-label="What to do">Glance at the far tree line, then back at the plane. Keep it against terrain when you can.</td><td data-label="Sunglasses help"><b>No.</b></td></tr>
+        <tr><td class="k" data-label="What's going on">Glare and squinting</td><td data-label="You'll notice">Worse near the sun or in bright haze. Eyes water.</td><td data-label="What to do">Dark gray or brown, a brim, and stay off the sun line.</td><td data-label="Sunglasses help"><b>Yes.</b> This is their job.</td></tr>
+        <tr><td class="k" data-label="What's going on">Your prescription has drifted</td><td data-label="You'll notice">Blurry all the time. Blinking doesn't help; squinting does.</td><td data-label="What to do">An eye exam. Prescription sunglasses, or contacts plus plain sunglasses.</td><td data-label="Sunglasses help"><b>Only with your prescription in them.</b></td></tr>
+        <tr><td class="k" data-label="What's going on">Early cataract</td><td data-label="You'll notice">General haze, halos, glare bothers you more than it used to, colors look flat. Common after 60.</td><td data-label="What to do">Eye exam. Good UV sunglasses and a brim for comfort. Surgery when it starts limiting you.</td><td data-label="Sunglasses help"><b>Partly.</b> Glare yes, haze no.</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h2>Ordering a pair online (EyeBuyDirect, Zenni, anywhere)</h2>
-  <ol class="check">
-    <li><b>Tick "UV protection"</b> (sometimes called UV400). Usually free. Nothing to do with how dark the lens is; even clear lenses can have it. Never wear dark lenses without it.</li>
-    <li><b>Say no to polarized.</b> Save the money.</li>
-    <li><b>Color: brown or copper.</b> Gray if you'd rather have true colors. Not blue.</li>
-    <li><b>Darkness: "Dark".</b> If the site asks for a tint percentage instead, pick 80. That's the normal dark strength (some sites just say Dark / Medium / Light).</li>
-    <li><b>Use your current distance prescription</b>, from an exam in the last couple of years.</li>
-    <li><b>Pick polycarbonate (impact-resistant) lenses.</b> Props, crashes and debris: you want lenses that don't shatter.</li>
-    <li><b>A big wrap-around lens</b>, or a frame that hugs your face. Keeps wind off your eyes.</li>
-    <li><b>Optional cheap second pair for gray days:</b> light yellow, the "Light" option (not dark).</li>
-    <li><b>In the flight box:</b> eye drops and a ball cap.</li>
-  </ol>
-
-  <h2>What other pilots say</h2>
-  <p>We read about fifteen forum threads and magazine pieces (most through search snippets, because the big RC forums block automated reading). Nobody has posted a proper side-by-side test. A few things came up repeatedly:</p>
-  <ul>
-    <li><b>Polarized blanks the transmitter screen.</b> Everyone who wears them has a workaround: tilt the transmitter, or pop the glasses off.</li>
-    <li><b>Split on whether polarized helps you tell which way the plane's pointing.</b> Four pilots said it hurts; two said it helps.</li>
-    <li><b>Brown or amber is the favorite color</b> in most of the threads we read. One pilot keeps two pairs: gray when the sun's in front of him, brown when it's behind.</li>
-    <li><b>Cheap sunglasses blur the plane.</b> Several pilots take them off and squint instead. That's lens quality, not color.</li>
-  </ul>
+  <h2 id="pilots">What other pilots say</h2>
+  <p>About fifteen forum threads and magazine pieces, none a proper side-by-side test. What came up repeatedly: polarized blanks the transmitter screen (everyone has a workaround); pilots are split on whether polarized helps or hurts orientation (four said hurts, two said helps); brown or amber is the favorite color; and cheap sunglasses blur the plane, so several pilots fly without.</p>
   <blockquote>"They are both non-polarized lenses. … the Corning Glass lenses did a great job on partly — and even mostly — cloudy days."<cite>Kyle Jaracz, <i>Model Aviation</i>, August 2024, reviewing Extreme Glare sunglasses</cite></blockquote>
 
-  <h2>Where this comes from</h2>
-  <p class="small">Every claim on this page was checked against its source a second time on 21 August 2026. The full write-up with every quote: <a href="https://rwjprojects.github.io/sunglasses/detailed.html">rwjprojects.github.io/sunglasses/detailed.html</a>. The short list:</p>
-  <ul class="src">
-    <li><b>FAA, "Sunglasses for Pilots: Beyond the Image"</b> (OK-24-1154, Sept 2024): gray recommended; gray, gray-green and brown all "an excellent choice"; yellow/amber "no scientific studies support" the sharper-vision claim; polarized "not recommended"; lenses blocking more than 85% of light not recommended. <a href="https://www.faa.gov/pilots/safety/pilotsafetybrochures/Sunglasses.pdf">faa.gov</a></li>
-    <li><b>FAA flight manual (AIM 8-1-6):</b> "empty-field myopia": with nothing to look at, the eyes drift to a focus of 10 to 30 feet.</li>
-    <li><b>AOPA:</b> traffic between you and a low sun is "very difficult to see."</li>
-    <li><b>Lab study, 2000 (Wolffsohn, <i>Optometry &amp; Vision Science</i>):</b> yellow lenses improved contrast of bright objects "against a blue-based background, such as the sky," at a cost to color vision. Brown was not tested.</li>
-    <li><b>Lab study, 2002 (de Fez):</b> brown, green and blue lenses no different from gray for contrast; yellow/orange slightly better, worse for colors.</li>
-    <li><b>Two lab studies (Kelly, 1984 and 1990):</b> people who had a preference chose yellow 2-to-1, and large scenes look up to 40% brighter through it, but they didn't actually see finer detail.</li>
-    <li><b>US Air Force field test (Aerospace Medical Research Lab, 1971):</b> ten observers searching for ground targets in moderate haze; yellow sunglasses "of no value" for spotting them, and slightly worse for identifying them.</li>
-    <li><b>Physics papers (<i>Applied Optics</i> 2003, 2008):</b> sky polarization peaks a quarter-turn from the sun; clouds and haze wipe it out.</li>
-    <li><b>American Academy of Ophthalmology:</b> brown/rose give extra contrast; avoid polarized with screens; "polarization itself does not provide UV protection"; wrap-around glasses for dry eye; cataract clouding common after 60; exams every 1–3 years at 55–64 for people without other eye problems.</li>
-    <li><b>National Eye Institute and Mayo Clinic:</b> dry eye causes blurry vision; artificial tears for mild cases; wraparound sunglasses outside; looking up opens the eyes wider so tears evaporate faster.</li>
-    <li><b>Zenni Optical:</b> "dark (80% tint)" means 80% of light blocked, which is where the checklist's number comes from.</li>
-    <li><b>Pilot forums and press:</b> HeliFreak, RC Universe, RCGroups, HobbySquawk, <i>Model Aviation</i> (Aug 2024), a soaring blog: about fifteen threads and articles. RC Universe quotes came from search snippets; we could not open the threads themselves.</li>
-  </ul>
-  <p class="small muted"><b>Honest note:</b> nobody has ever tested a small model plane against the sky through different lenses. Everything here is physics, lab tests and experienced people's advice, applied to what we do. Good advice, not a guarantee.</p>
+  <details>
+    <summary>Where this comes from (12 sources, every claim re-checked 21 Aug 2026)</summary>
+    <ul class="src">
+      <li><b>FAA, "Sunglasses for Pilots: Beyond the Image"</b> (OK-24-1154, Sept 2024): gray recommended; gray, gray-green and brown all "an excellent choice"; yellow/amber "no scientific studies support" the sharper-vision claim; polarized "not recommended"; lenses blocking more than 85% of light not recommended. <a href="https://www.faa.gov/pilots/safety/pilotsafetybrochures/Sunglasses.pdf">faa.gov</a></li>
+      <li><b>FAA flight manual (AIM 8-1-6):</b> "empty-field myopia": with nothing to look at, the eyes drift to a focus of 10 to 30 feet.</li>
+      <li><b>AOPA:</b> traffic between you and a low sun is "very difficult to see."</li>
+      <li><b>Lab study, 2000 (Wolffsohn, <i>Optometry &amp; Vision Science</i>):</b> yellow lenses improved contrast of bright objects "against a blue-based background, such as the sky," at a cost to color vision. Brown was not tested.</li>
+      <li><b>Lab study, 2002 (de Fez):</b> brown, green and blue lenses no different from gray for contrast; yellow/orange slightly better, worse for colors.</li>
+      <li><b>Two lab studies (Kelly, 1984 and 1990):</b> people who had a preference chose yellow 2-to-1, and large scenes look up to 40% brighter through it, but they didn't actually see finer detail.</li>
+      <li><b>US Air Force field test (Aerospace Medical Research Lab, 1971):</b> ten observers searching for ground targets in moderate haze; yellow sunglasses "of no value" for spotting them, and slightly worse for identifying them.</li>
+      <li><b>Physics papers (<i>Applied Optics</i> 2003, 2008):</b> sky polarization peaks a quarter-turn from the sun; clouds and haze wipe it out.</li>
+      <li><b>American Academy of Ophthalmology:</b> brown/rose give extra contrast; avoid polarized with screens; "polarization itself does not provide UV protection"; wrap-around glasses for dry eye; cataract clouding common after 60; exams every 1–3 years at 55–64 for people without other eye problems.</li>
+      <li><b>National Eye Institute and Mayo Clinic:</b> dry eye causes blurry vision; artificial tears for mild cases; wraparound sunglasses outside; looking up opens the eyes wider so tears evaporate faster.</li>
+      <li><b>Zenni Optical:</b> "dark (80% tint)" means 80% of light blocked, which is where the checklist's number comes from.</li>
+      <li><b>Pilot forums and press:</b> HeliFreak, RC Universe, RCGroups, HobbySquawk, <i>Model Aviation</i> (Aug 2024), a soaring blog. RC Universe quotes came from search snippets; the threads themselves are behind a block.</li>
+    </ul>
+    <p class="small muted">Nobody has ever tested a small model plane against the sky through different lenses. Everything here is physics, lab tests and experienced people's advice, applied to what we do. Full write-up with every quote: <a href="https://rwjprojects.github.io/sunglasses/detailed.html">rwjprojects.github.io/sunglasses/detailed.html</a></p>
+  </details>
 
   <footer>Put together by Rob (rwjprojects) for RC pilots, August 2026. Not medical advice. If the plane's blurry and a blink doesn't fix it, see an eye doctor.</footer>
 </div>
+<script>window.addEventListener("beforeprint",function(){document.querySelectorAll("details").forEach(function(d){d.open=true})});</script>
 
 </body>
 </html>
