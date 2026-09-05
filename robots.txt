@@ -1,2 +1,3 @@
 User-agent: *
+Disallow: /plant-market/
 Disallow: /pmi-c94e19dbdc10/
