@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /pmi-c94e19dbdc10/
