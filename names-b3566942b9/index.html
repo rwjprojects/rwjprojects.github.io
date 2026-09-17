@@ -8,6 +8,7 @@
   --ground:#F4F5F1; --panel:#FFFFFF; --ink:#18202A; --muted:#58636E; --line:#D8DCD3; --soft:#ECEEE8;
   --accent:#1F5FA8; --accent-ink:#FFFFFF;
   --ok:#2C7A47; --ok-bg:#E3F1E7; --bad:#A93838; --bad-bg:#F6E3E1; --warn:#8A6100; --warn-bg:#F7EDD2; --na:#7C858E; --na-bg:#ECEEEF;
+  --pick-bg:#E9F1FC;
   --display:"Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
   --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -17,12 +18,14 @@
     --ground:#111519; --panel:#181E24; --ink:#E5E9ED; --muted:#98A3AE; --line:#2B333B; --soft:#1F262D;
     --accent:#83B3EB; --accent-ink:#0E1A28;
     --ok:#74C792; --ok-bg:#16301F; --bad:#EE8B85; --bad-bg:#3A1C1B; --warn:#E3B54E; --warn-bg:#352A10; --na:#8E98A2; --na-bg:#242B31;
+    --pick-bg:#152232;
   }
 }
 :root[data-theme="dark"]{
   --ground:#111519; --panel:#181E24; --ink:#E5E9ED; --muted:#98A3AE; --line:#2B333B; --soft:#1F262D;
   --accent:#83B3EB; --accent-ink:#0E1A28;
   --ok:#74C792; --ok-bg:#16301F; --bad:#EE8B85; --bad-bg:#3A1C1B; --warn:#E3B54E; --warn-bg:#352A10; --na:#8E98A2; --na-bg:#242B31;
+  --pick-bg:#152232;
 }
 *{box-sizing:border-box}
 body{background:var(--ground);color:var(--ink);font:15px/1.5 var(--body);padding-inline:16px;padding-block:0 48px}
@@ -144,8 +147,8 @@ a:hover{text-decoration-thickness:2px}
 .hint b{color:var(--ink)}
 .nlist{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .ghead{font:600 14px var(--display);padding:12px 14px 6px;background:var(--soft);border-top:1px solid var(--line)}
-.nrow.open{background:var(--ok-bg);box-shadow:inset 4px 0 0 var(--ok)}
-.badge.open{color:var(--ok);border-color:var(--ok);font-weight:700}
+.nrow.open{background:var(--pick-bg);box-shadow:inset 4px 0 0 var(--accent)}
+.badge.open{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:700}
 .reqtop{background:var(--panel);border:1px solid var(--ok);border-left:4px solid var(--ok);border-radius:10px;padding:10px 14px;margin:0 0 12px;font-size:14px}
 .reqtop button{font:600 13px var(--body);border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:8px;padding:4px 10px;margin-left:6px;cursor:pointer;min-height:36px}
 .ghead:first-child{border-top:0}
