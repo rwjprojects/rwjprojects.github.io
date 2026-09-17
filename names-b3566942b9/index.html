@@ -77,6 +77,8 @@ tr:last-child td{border-bottom:0}
 .like[aria-pressed="true"]{background:var(--ok-bg);color:var(--ok);border-color:var(--ok)}
 .liked{font:600 11px var(--body);color:var(--ok);margin-left:6px}
 .reqs{margin:6px 0 0;padding-left:18px;font-size:13px}
+.reqs .flash{color:var(--ok)}
+.btn:disabled{opacity:.6}
 .tray{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:12px;align-items:center;justify-content:space-between;
   background:var(--ink);color:var(--ground);padding:10px 16px calc(10px + env(safe-area-inset-bottom, 0px));box-shadow:0 -4px 16px rgba(0,0,0,.18)}
 .tray .btn{background:var(--ok);border-color:var(--ok);color:#fff}
@@ -515,23 +517,69 @@ async function toggleLike(kk){
   try {
     if (LIKES.mine.has(kk)) await ref.delete();
     else await ref.set({project: p, name: n, by: MY_ID, at: new Date().toISOString()});
-  } catch (e) { /* view-only viewers cannot like; the button simply does nothing */ }
+  } catch (e) {
+    CAN_LIKE = false;
+    PROJECTS.forEach(P => { const v = document.getElementById("votebar-" + P.k);
+      if (v) v.textContent = "Your vote couldn’t be saved — this link is view-only for you."; renderPicks(P.k); renderRows(P.k); });
+  }
+}
+let REQS = [];          // the request docs this view has seen
+const SENDING = {};
+const sameSet = (a, b) => a.length === b.length && [...a].sort().join() === [...b].sort().join();
+function flashButtons(k, text){
+  [document.getElementById("morelike-" + k), document.getElementById("tray-more")].forEach(el => {
+    if (!el) return;
+    el.textContent = text;
+    el.disabled = text === "Sending…";
+  });
+}
+function resetButtons(k){
+  const m = document.getElementById("morelike-" + k); if (m) { m.textContent = "Find more like my 👍 names"; m.disabled = false; }
+  const t = document.getElementById("tray-more"); if (t) { t.textContent = "Find more like these"; t.disabled = false; }
+}
+function sayReq(k, html){
+  const box = document.getElementById("req-" + k);
+  if (box) box.insertAdjacentHTML("afterbegin", `<li class="flash"><b>${html}</b></li>`);
 }
 async function askForMore(k){
+  if (SENDING[k]) return;                       // a second tap while the first is on its way does nothing
   const liked = [...LIKES.mine].filter(x => x.startsWith(k + ":")).map(x => x.split(":")[1]);
   const box = document.getElementById("req-" + k);
-  if (!liked.length) { box.innerHTML = "<li>Thumbs-up a few names first — the new batch is built from what they have in common.</li>"; return; }
+  if (!liked.length) { box.innerHTML = "<li>Tap 👍 Like on a few names first — the new batch is built from what they have in common.</li>"; return; }
+  const dup = REQS.find(v => v.project === k && sameSet(v.liked || [], liked));
+  if (dup) {
+    sayReq(k, dup.status === "done"
+      ? "You already asked for these likes — that batch is in the list (tagged “from your likes”). Like a few different names to get a new batch."
+      : "Already on its way — the new names arrive within about an hour.");
+    flashButtons(k, "Already sent"); setTimeout(() => resetButtons(k), 4000);
+    return;
+  }
+  SENDING[k] = true;
+  flashButtons(k, "Sending…");
   try {
-    await DB.doc(`requests/${Date.now()}-${k}`).set({project: k, liked, by: MY_ID, at: new Date().toISOString(), status: "waiting"});
-  } catch (e) { box.innerHTML = "<li>Couldn’t send the request (you may have view-only access).</li>"; }
+    const v = {project: k, liked, by: MY_ID, at: new Date().toISOString(), status: "waiting"};
+    await DB.doc(`requests/${Date.now()}-${k}`).set(v);
+    REQS.push(v);
+    flashButtons(k, "Sent ✓");
+    sayReq(k, `Sent — new names like your ${liked.length} liked ones arrive within about an hour.`);
+  } catch (e) {
+    box.innerHTML = "<li>Couldn’t send the request (you may have view-only access).</li>";
+    resetButtons(k);
+  } finally {
+    SENDING[k] = false;
+    setTimeout(() => resetButtons(k), 4000);
+  }
 }
 function renderRequests(docs){
   const byP = {A: [], B: [], C: [], N: []};
-  docs.forEach(d => { const v = d.data(); if (v && byP[v.project]) byP[v.project].push(v); });
+  REQS = [];
+  docs.forEach(d => { const v = d.data(); if (v) REQS.push(v); if (v && byP[v.project]) byP[v.project].push(v); });
   for (const k of Object.keys(byP)) {
     const box = document.getElementById("req-" + k); if (!box) continue;
     box.innerHTML = byP[k].sort((a, b) => String(b.at).localeCompare(String(a.at))).slice(0, 3).map(v =>
-      v.status === "done"
+      v.status === "done" && v.added === 0
+        ? `<li>Repeat request — same likes as an earlier batch, so nothing new was made.</li>`
+        : v.status === "done"
         ? `<li>Done — ${esc(v.added ?? "new")} names built from ${v.liked.length} 👍 names were added (tagged “from your likes”).</li>`
         : `<li>Waiting — a new batch built from ${v.liked.length} 👍 names (${esc(v.liked.slice(0, 4).join(", "))}${v.liked.length > 4 ? "…" : ""}) arrives after the next check, usually within an hour.</li>`
     ).join("");
@@ -590,10 +638,14 @@ if (window.claude) (async () => {
       SAMPLE || DB ? "Checks run from Rob’s machine (the page can’t reach the domain registry), so queued names show “waiting” until then."
                    : "Asking Claude and the check queue only work when this page is opened inside Claude.";
   });
-  PROJECTS.forEach(P => { const v = document.getElementById("votebar-" + P.k); if (v) v.innerHTML = DB
-    ? "<b>Tap 👍 Like</b> on names you want. They move to the top, and the bar at the bottom asks for more like them."
-    : "Voting isn’t available in this view — open this page inside Claude to vote."; });
-  if (DB && MY_ID) {
+  let canWrite = null;   // false = view-only (e.g. someone outside Rob's account on a shared link)
+  try { canWrite = user && user.can ? await user.can("data.write") : null; } catch (e) { canWrite = null; }
+  PROJECTS.forEach(P => { const v = document.getElementById("votebar-" + P.k); if (v) v.innerHTML = !DB
+    ? "Voting isn’t available in this view — open this page inside Claude to vote."
+    : canWrite === false
+    ? "You can look through every name here, but this link is view-only — voting is for the page owner."
+    : "<b>Tap 👍 Like</b> on names you want. They move to the top, and the bar at the bottom asks for more like them."; });
+  if (DB && MY_ID && canWrite !== false) {
     CAN_LIKE = true;
     PROJECTS.forEach(P => { const m = document.getElementById("morelike-" + P.k); if (m) m.hidden = false; });
     DB.collection("likes").onSnapshot(s => {
