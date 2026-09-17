@@ -322,9 +322,9 @@ function nrow(x, tags){
   if (x.round === "likes") b.push('<span class="badge lk">from Rob’s likes</span>');
   if (x.newest) b.push('<span class="badge">new</span>');
   const open = openLevel(x);
+  // Only a name that is free EVERYWHERE we checked all four gets the tint; 3-of-4 says so plainly instead.
   if (open === 2) b.push('<span class="badge open">✓ .com + all 4 socials free</span>');
-  else if (open === 1) b.push('<span class="badge open">✓ .com + TikTok, YouTube, X free · Instagram not checked</span>');
-  return `<div class="nrow${open ? " open" : ""}" data-name="${esc(x.n)}">
+  return `<div class="nrow${open === 2 ? " open" : ""}" data-name="${esc(x.n)}">
     <div class="nm">${esc(x.n)}<span class="tld">.com</span></div>
     ${likeBtn(x)}
     <div class="meta"><span class="score">${esc(r.score ?? "–")}/10</span>${dots(x)}${b.join("")}</div>
@@ -340,7 +340,7 @@ function computeOrder(k){
   let rows = DATA.names.filter(x => x.p === k);
   if (on.includes("liked")) rows = rows.filter(isLiked);
   if (on.includes("keep")) rows = rows.filter(x => (x.r?.score ?? 0) >= 6);
-  if (on.includes("all4")) rows = rows.filter(x => openLevel(x) > 0);
+  if (on.includes("all4")) rows = rows.filter(x => openLevel(x) === 2);
   if (on.includes("fromlikes")) rows = rows.filter(x => x.round === "likes");
   if (on.includes("rob")) rows = rows.filter(x => x.src === "rob");
   const liked = rows.filter(isLiked).sort(byScore);
@@ -414,7 +414,7 @@ function panel(P){
     <div class="filters" role="group" aria-label="Show only">
       <button class="chip live-only" id="f-liked-${P.k}" data-f="liked" aria-pressed="false">Liked</button>
       <button class="chip" id="f-keep-${P.k}" data-f="keep" aria-pressed="false">Score 6+</button>
-      <button class="chip" id="f-all-${P.k}" data-f="all4" aria-pressed="false">Everything free</button>
+      <button class="chip" id="f-all-${P.k}" data-f="all4" aria-pressed="false">.com + all 4 socials free</button>
       ${mine.some(x => x.round === "likes") ? `<button class="chip" id="f-fresh-${P.k}" data-f="fromlikes" aria-pressed="false">From your likes</button>` : ""}
       ${robAll ? `<button class="chip" id="f-rob-${P.k}" data-f="rob" aria-pressed="false">Rob’s list</button>` : ""}
     </div>
