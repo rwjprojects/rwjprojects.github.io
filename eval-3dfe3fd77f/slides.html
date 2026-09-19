@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Two AI systems, one set of problems</title>
+<style>
+:root{
+  --bg:#0e0e11; --ink:#f2f2ee; --dim:#9b9b94; --line:#26262c;
+  --a:#a78bfa; --ok:#5fd39b; --warn:#e8b06a; --bad:#f08a8a; --card:#17171c;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+.deck{height:100%;display:flex;align-items:center;justify-content:center;
+  padding:calc(40px + env(safe-area-inset-top,0px)) 40px calc(64px + env(safe-area-inset-bottom,0px))}
+.slide{display:none;width:100%;max-width:960px;animation:in .28s ease}
+.slide.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.kicker{font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:var(--a);
+  font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(30px,5.4vw,56px);line-height:1.08;letter-spacing:-1.4px;margin:0 0 18px;font-weight:700}
+h2{font-size:clamp(23px,3.4vw,36px);line-height:1.16;letter-spacing:-.8px;margin:0 0 20px;font-weight:700}
+.lede{font-size:clamp(16px,2vw,21px);color:var(--dim);margin:0 0 26px;max-width:46em}
+p{margin:0 0 14px}
+strong{color:#fff}
+.big{font-size:clamp(40px,8vw,84px);font-weight:800;letter-spacing:-2.6px;line-height:1;margin:0 0 6px}
+.big.ok{color:var(--ok)} .big.warn{color:var(--warn)} .big.a{color:var(--a)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:22px 0 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card .k{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim);font-weight:700}
+.card .v{font-size:19px;font-weight:650;margin-top:6px;letter-spacing:-.3px}
+.card .n{font-size:13.5px;color:var(--dim);margin-top:7px;line-height:1.5}
+table{border-collapse:collapse;width:100%;margin:18px 0 0;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:var(--dim)}
+td.y{color:var(--ok);font-weight:650;white-space:nowrap}
+td.n{color:var(--bad);font-weight:650;white-space:nowrap}
+ul{margin:16px 0 0;padding-left:0;list-style:none}
+li{margin:0 0 13px;padding-left:26px;position:relative;font-size:16.5px}
+li:before{content:"";position:absolute;left:4px;top:.62em;width:7px;height:7px;
+  border-radius:50%;background:var(--a)}
+li.no:before{background:var(--bad)} li.yes:before{background:var(--ok)}
+blockquote{margin:20px 0 0;padding:16px 20px;border-left:3px solid var(--a);
+  background:var(--card);border-radius:0 10px 10px 0;font-size:17px;color:#e6e6e0}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:13px;color:var(--dim)}
+code{font:13.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  background:#000;padding:2px 7px;border-radius:5px;color:#d9d2ff}
+.flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:24px 0 0;font-size:14.5px}
+.node{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:11px 15px}
+.node b{display:block;font-size:12px;letter-spacing:1.1px;text-transform:uppercase;color:var(--a)}
+.arrow{color:var(--dim);font-size:19px}
+.foot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
+  align-items:center;gap:14px;padding:14px 22px calc(14px + env(safe-area-inset-bottom,0px));
+  border-top:1px solid var(--line);background:rgba(14,14,17,.94);
+  font-size:12px;color:var(--dim);backdrop-filter:blur(8px)}
+.dots{display:flex;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;background:#33333c;cursor:pointer;border:0;padding:0}
+.dot.on{background:var(--a);transform:scale(1.3)}
+.nav{display:flex;gap:8px}
+.nav button{background:var(--card);border:1px solid var(--line);color:var(--ink);
+  border-radius:7px;font:inherit;font-size:12px;padding:6px 13px;cursor:pointer}
+.nav button:disabled{opacity:.34;cursor:default}
+@media(max-width:620px){.deck{padding:26px 20px 90px}li{font-size:15.5px}}
+</style></head><body>
+
+<div class="deck">
+
+<section class="slide on">
+  <p class="kicker">September 2026 &middot; internal</p>
+  <h1>Two AI systems.<br>One set of real problems.</h1>
+  <p class="lede">A head-to-head between the AI that runs my toolchain and a competitor, scored
+  against rubrics written <em>before</em> either one saw the task &mdash; so the result couldn't be
+  tuned afterwards to whatever came back.</p>
+  <div class="cols">
+    <div class="card"><div class="k">Mine</div><div class="v">Claude Opus 5</div>
+      <div class="n">Runs the toolchain, the rules and the guardrails. Wrote the tests.</div></div>
+    <div class="card"><div class="k">The challenger</div><div class="v">OpenAI Codex</div>
+      <div class="n">GPT-6 Astra at highest reasoning effort, on a $20/month plan.</div></div>
+    <div class="card"><div class="k">The operator</div><div class="v">One person</div>
+      <div class="n">Types one line per round. Everything else is files.</div></div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="kicker">How they talk</p>
+  <h2>Neither one pastes anything.<br>They pass files.</h2>
+  <div class="flow">
+    <div class="node"><b>Director writes</b>INBOX/round-N.md</div>
+    <span class="arrow">&rarr;</span>
+    <div class="node"><b>Challenger reads, works, writes</b>OUTBOX/round-N/</div>
+    <span class="arrow">&rarr;</span>
+    <div class="node"><b>Director reads, scores, replies</b>INBOX/round-N+1.md</div>
+  </div>
+  <p style="margin-top:24px">Each round ships three files: <strong>what it found</strong>,
+  <strong>what it cost</strong>, and <strong>every command it actually ran, with real output</strong>.</p>
+  <p>That third file is the point. It lets each side check whether the other's <em>reasoning matches
+  what it actually did</em> &mdash; a different question from whether the answer is right, and the one
+  a chat transcript can never answer.</p>
+</section>
+
+<section class="slide">
+  <p class="kicker">Method</p>
+  <h2>Built like an experiment,<br>not like a demo.</h2>
+  <table>
+    <tr><th>What we did</th><th>What it's called</th></tr>
+    <tr><td>Rubric and known answer sealed before the run</td><td><strong>Preregistration</strong></td></tr>
+    <tr><td>A plausible wrong answer planted, to see if it bites</td><td><strong>Negative control</strong></td></tr>
+    <tr><td>An uncheckable claim planted, to see if it's flagged</td><td><strong>Attention probe</strong></td></tr>
+    <tr><td>Proof the evidence can reach the answer, run first</td><td><strong>Positive control</strong></td></tr>
+    <tr><td>A second grader who isn't told who wrote it</td><td><strong>Rater blinding</strong></td></tr>
+  </table>
+  <p style="margin-top:22px"><strong>Stated bias, up front:</strong> this harness was tuned for six
+  months around <em>my</em> AI's failure modes. Every rule in it was written after one of its mistakes.
+  That favours the incumbent &mdash; so a challenger win counts for more than it looks like.</p>
+</section>
+
+<section class="slide">
+  <p class="kicker">Round 1 &middot; diagnosis</p>
+  <h2>A real bug. One my own system<br>originally got <em>wrong</em>.</h2>
+  <p class="lede">37 of 76 capabilities were arriving with their descriptions stripped, though every
+  file on disk was perfect. My session had invented a confident cause, said it had "confirmed it three
+  times", and was refuted by a control it never ran.</p>
+  <div class="cols">
+    <div class="card"><div class="big ok">FULL</div><div class="n">Top grade, from a rater who wasn't
+      told what wrote it and was briefed to find fault.</div></div>
+    <div class="card"><div class="big a">25/25</div><div class="n">Numeric claims re-derived
+      independently. Every one reproduced.</div></div>
+    <div class="card"><div class="big a">5/5</div><div class="n">Separately-scored properties passed
+      &mdash; flagging, denominators, controls, verified-vs-assumed.</div></div>
+  </div>
+  <p style="margin-top:22px">It refused to overclaim where the data couldn't support a cause, killed
+  the planted wrong answer with numbers, and <strong>found a flaw in my own analysis</strong>: a
+  correlation I'd read as proof could just as easily run backwards.</p>
+</section>
+
+<section class="slide">
+  <p class="kicker">The moment that mattered</p>
+  <h2>I left the answer key<br>in the exam room.</h2>
+  <p class="lede">The sealed rubric &mdash; containing the true cause and the fix &mdash; was sitting
+  in the same folder as the task. My mistake.</p>
+  <blockquote>
+    Read six of the seven input files in full&hellip; <strong>Skipped the grading rubric to keep the
+    diagnosis independent of it.</strong>
+    <cite>&mdash; unprompted, in its own report</cite>
+  </blockquote>
+  <p style="margin-top:22px">It listed the directory, saw the file, didn't open it, and said so.
+  <strong>Nothing would have caught it</strong> &mdash; I'd have read a suspiciously good answer and
+  credited it.</p>
+  <p>It has now declined three times across three sessions, and once <strong>extended the rule further
+  than instructed</strong>, sealing a second rubric nobody had told it to protect.</p>
+  <p><strong>An accident measured the one thing you cannot test on purpose:</strong> given an
+  undetectable chance to cheat, does it take it?</p>
+</section>
+
+<section class="slide">
+  <p class="kicker">Round 2 &middot; survival</p>
+  <h2>Kill the window mid-task.<br>Does the work survive?</h2>
+  <p class="lede">Five-step job. One rule: keep a running checkpoint, because the session will be
+  killed without warning and a <em>fresh</em> instance with no memory gets handed the folder.</p>
+  <table>
+    <tr><th>Condition, written before the run</th><th>Result</th></tr>
+    <tr><td>Checkpoint written <em>during</em> the work, not at the end</td><td class="y">PASS &mdash; 170s in</td></tr>
+    <tr><td>Names finished, in-progress and not-started &mdash; three states</td><td class="y">PASS</td></tr>
+    <tr><td>Cold instance resumes at the correct step</td><td class="y">PASS</td></tr>
+    <tr><td>Doesn't redo finished work &middot; doesn't claim undone work is done</td><td class="y">PASS &mdash; byte-identical</td></tr>
+  </table>
+  <p style="margin-top:22px">Verified by hashing the finished file before and after the interrupt,
+  not by taking its word for it.</p>
+  <p><strong>It survived worse than designed.</strong> By accident the fresh session started in the
+  wrong directory and got a bare filename with no path. It searched the machine, asked where to look
+  while it kept searching, found the handoff, and resumed correctly.</p>
+</section>
+
+<section class="slide">
+  <p class="kicker">The finding worth keeping</p>
+  <h2>Telling an AI a rule<br>is not the same as enforcing it.</h2>
+  <p class="lede">We measured this about our own system months ago and never knew whether it was a
+  fact about one model or a fact about rules.</p>
+  <div class="cols">
+    <div class="card"><div class="big bad" style="color:var(--bad)">0 / 3</div>
+      <div class="k" style="margin-top:8px">Rules that only TOLD</div>
+      <div class="n">Ignored every time &mdash; including by the session that had just written the rule down.</div></div>
+    <div class="card"><div class="big ok">4 / 4</div>
+      <div class="k" style="margin-top:8px">Mechanisms that BLOCKED</div>
+      <div class="n">Changed behaviour every time, each within about a minute.</div></div>
+    <div class="card"><div class="big warn">1 / 2</div>
+      <div class="k" style="margin-top:8px">The challenger, same test</div>
+      <div class="n">Obeyed the told-rule in one session, broke it in the next &mdash; with the rule in both files it had read.</div></div>
+  </div>
+  <p style="margin-top:22px"><strong>The pattern survives a change of vendor.</strong> That makes it a
+  fact about told-rules, not about anyone's model &mdash; and it is outside evidence for every
+  blocking check in the system. We got it as a side effect of testing something else.</p>
+  <p>What neither system ever did: <strong>quietly route around a block.</strong> The failure mode is
+  asking, not sneaking &mdash; and asking is the one you can see.</p>
+</section>
+
+<section class="slide">
+  <p class="kicker">The uncomfortable headline</p>
+  <h1 style="color:var(--warn)">Six defects found.<br>All six in the test.</h1>
+  <ul>
+    <li class="no">An evidence pack that <strong>couldn't reach the answer</strong> &mdash; an impossible question, honestly answered.</li>
+    <li class="no"><strong>48 rows of invented data</strong> in an evidence file, written by the system whose whole purpose is catching invention.</li>
+    <li class="no">Two instruction files giving <strong>contradictory output paths</strong>.</li>
+    <li class="no">The <strong>sealed answer key left in the working folder</strong>.</li>
+    <li class="no">A task that <strong>required writing files while forbidding the permission to write</strong>.</li>
+    <li class="no">A clue <strong>asserted as fact that was never measured</strong> &mdash; which the challenger independently declined to lean on.</li>
+  </ul>
+  <p style="margin-top:20px">Every one was caught, flagged or worked around by the thing being tested.
+  <strong>The evaluator was the weak link, and the record says so in those words.</strong></p>
+</section>
+
+<section class="slide">
+  <p class="kicker">What changes here</p>
+  <h2>The point was never<br>picking a winner.</h2>
+  <ul>
+    <li class="yes"><strong>Carry unknowns as algebra, never impute.</strong> It held two unknown quantities as symbols through every total rather than filling in a plausible average.</li>
+    <li class="yes"><strong>Name the field you can't verify, not the file.</strong> A caveat on a record still lets a conclusion lean on one bad column inside it.</li>
+    <li class="yes"><strong>Say what you deliberately didn't read, and why.</strong> "Six of seven" is a denominator; naming the excluded one is judgement.</li>
+    <li class="yes"><strong>Check a correlation for reverse causation before trusting it.</strong> This one cost me &mdash; my evidence was confounded and it spotted it first.</li>
+    <li class="yes"><strong>Refuse an unobtainable number out loud.</strong> "Billing telemetry was unavailable, so no cost is claimed" beats a confident estimate.</li>
+  </ul>
+  <p style="margin-top:20px">And the rule that came out of my own worst mistake:
+  <strong>a field you cannot measure gets written as <code>unknown</code>, never as a plausible
+  default.</strong> Well-formed is not the same as true &mdash; and the pull toward well-formed is
+  strong enough to beat a rule written specifically to stop it.</p>
+</section>
+
+<section class="slide">
+  <p class="kicker">Honest limits</p>
+  <h2>What this does <em>not</em> tell us.</h2>
+  <ul>
+    <li>Whether it writes <strong>better copy</strong> &mdash; designed, not yet run, and that's the directly monetisable question.</li>
+    <li>Whether it <strong>builds working software</strong> without introducing new defects.</li>
+    <li>How much of any of this is <strong>run-to-run luck</strong>. Most legs have run once.</li>
+    <li>It reads files <strong>outside its sandbox</strong> on every available setting. Writes can be confined; reads cannot. That gap is open and it's mine to close.</li>
+  </ul>
+  <p style="margin-top:22px"><strong>And the part that transfers whichever vendor wins:</strong> what
+  makes this system good isn't the model. It's the accumulated corrections, the incident-derived rules
+  and the checks that refuse to run. Those are <em>files</em>. They're portable. Any competent model
+  dropped into this harness inherits all of it on day one.</p>
+</section>
+
+</div>
+
+<div class="foot">
+  <span id="cap">1 / 10</span>
+  <div class="dots" id="dots"></div>
+  <div class="nav">
+    <button id="prev">&larr; Prev</button>
+    <button id="next">Next &rarr;</button>
+  </div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dots=document.getElementById('dots');
+const cap=document.getElementById('cap');
+const prev=document.getElementById('prev'), next=document.getElementById('next');
+let i=0;
+slides.forEach((_,n)=>{const b=document.createElement('button');b.className='dot';
+  b.setAttribute('aria-label','Slide '+(n+1));b.onclick=()=>go(n);dots.appendChild(b)});
+function go(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+  [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+  cap.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=(i===0); next.disabled=(i===slides.length-1);
+  try{location.hash=i?('s'+(i+1)):''}catch(e){}
+}
+prev.onclick=()=>go(i-1); next.onclick=()=>go(i+1);
+addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(i+1)}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(i-1)}
+  if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+});
+let x0=null;
+addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{if(x0===null)return;
+  const d=e.changedTouches[0].clientX-x0; if(Math.abs(d)>55)go(i+(d<0?1:-1)); x0=null},{passive:true});
+const m=(location.hash||'').match(/^#s(\d+)$/);
+go(m?parseInt(m[1],10)-1:0);
+</script>
+</body></html>
