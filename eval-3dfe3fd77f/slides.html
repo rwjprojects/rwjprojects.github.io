@@ -111,9 +111,10 @@ code{font:13.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     <tr><td>Proof the evidence can reach the answer, run first</td><td><strong>Positive control</strong></td></tr>
     <tr><td>A second grader who isn't told who wrote it</td><td><strong>Rater blinding</strong></td></tr>
   </table>
-  <p style="margin-top:22px"><strong>Stated bias, up front:</strong> this harness was tuned for six
-  months around <em>my</em> AI's failure modes. Every rule in it was written after one of its mistakes.
-  That favours the incumbent &mdash; so a challenger win counts for more than it looks like.</p>
+  <p style="margin-top:22px"><strong>One of these was done badly, and the challenger caught it.</strong>
+  The "blind" grader's rubric was written by me &mdash; the interested party &mdash; and I added a clause
+  that favoured the challenger. Identity blinding was real; independence was not. The grade it produced
+  now carries a permanent asterisk.</p>
 </section>
 
 <section class="slide">
@@ -123,8 +124,9 @@ code{font:13.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   file on disk was perfect. My session had invented a confident cause, said it had "confirmed it three
   times", and was refuted by a control it never ran.</p>
   <div class="cols">
-    <div class="card"><div class="big ok">FULL</div><div class="n">Top grade, from a rater who wasn't
-      told what wrote it and was briefed to find fault.</div></div>
+    <div class="card"><div class="big ok">FULL*</div><div class="n">Top grade, from a rater who wasn't
+      told what wrote it. <strong>*Asterisked:</strong> the evaluator wrote that rater's rubric.
+      Method and calibration &mdash; not proof the cause was established.</div></div>
     <div class="card"><div class="big a">25/25</div><div class="n">Numeric claims re-derived
       independently. Every one reproduced.</div></div>
     <div class="card"><div class="big a">5/5</div><div class="n">Separately-scored properties passed
@@ -176,6 +178,7 @@ code{font:13.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 <section class="slide">
   <p class="kicker">The finding worth keeping</p>
   <h2>Telling an AI a rule<br>is not the same as enforcing it.</h2>
+  <p style="color:var(--warn);font-weight:650;margin:-8px 0 16px">Corrected: this is two observations, not a measured law. See the last slide.</p>
   <p class="lede">We measured this about our own system months ago and never knew whether it was a
   fact about one model or a fact about rules.</p>
   <div class="cols">
@@ -189,16 +192,17 @@ code{font:13.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
       <div class="k" style="margin-top:8px">The challenger, same test</div>
       <div class="n">Obeyed the told-rule in one session, broke it in the next &mdash; with the rule in both files it had read.</div></div>
   </div>
-  <p style="margin-top:22px"><strong>The pattern survives a change of vendor.</strong> That makes it a
-  fact about told-rules, not about anyone's model &mdash; and it is outside evidence for every
-  blocking check in the system. We got it as a side effect of testing something else.</p>
+  <p style="margin-top:22px"><strong>That generalisation was struck.</strong> The challenger audited it:
+  <em>"1/2 exceeds 0/3 is arithmetic, not a controlled comparison."</em> The two sessions differed in
+  starting state, permissions and working directory. What stands is two observations &mdash; not a fact
+  about told-rules across vendors.</p>
   <p>What neither system ever did: <strong>quietly route around a block.</strong> The failure mode is
   asking, not sneaking &mdash; and asking is the one you can see.</p>
 </section>
 
 <section class="slide">
   <p class="kicker">The uncomfortable headline</p>
-  <h1 style="color:var(--warn)">Six defects found.<br>All six in the test.</h1>
+  <h1 style="color:var(--warn)">Seven defects found.<br>All seven in the test.</h1>
   <ul>
     <li class="no">An evidence pack that <strong>couldn't reach the answer</strong> &mdash; an impossible question, honestly answered.</li>
     <li class="no"><strong>48 rows of invented data</strong> in an evidence file, written by the system whose whole purpose is catching invention.</li>
@@ -206,6 +210,7 @@ code{font:13.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     <li class="no">The <strong>sealed answer key left in the working folder</strong>.</li>
     <li class="no">A task that <strong>required writing files while forbidding the permission to write</strong>.</li>
     <li class="no">A clue <strong>asserted as fact that was never measured</strong> &mdash; which the challenger independently declined to lean on.</li>
+    <li class="no">The invented data was <strong>disclosed and then never actually corrected</strong> &mdash; totals kept being published from it. Worse than the original fabrication, because disclosure looks like a fix.</li>
   </ul>
   <p style="margin-top:20px">Every one was caught, flagged or worked around by the thing being tested.
   <strong>The evaluator was the weak link, and the record says so in those words.</strong></p>
@@ -240,6 +245,32 @@ code{font:13.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   makes this system good isn't the model. It's the accumulated corrections, the incident-derived rules
   and the checks that refuse to run. Those are <em>files</em>. They're portable. Any competent model
   dropped into this harness inherits all of it on day one.</p>
+</section>
+
+
+<section class="slide">
+  <p class="kicker">The last round &middot; and the real result</p>
+  <h1 style="color:var(--warn)">I asked it to audit<br>my evaluation. It failed me.</h1>
+  <p class="lede">Final round: every rubric unsealed, and one instruction &mdash; find the flaw in the
+  thing that has been testing you.</p>
+  <blockquote>
+    <strong>No &mdash; not for selecting a vendor or adopting an unattended session.</strong>
+    It is sufficient to justify continuing a small, supervised review pilot. Those are different
+    decisions.
+    <cite>&mdash; its verdict on my evaluation</cite>
+  </blockquote>
+  <p style="margin-top:20px"><strong>Eight findings. I accepted all eight and disputed none</strong>
+  &mdash; bound by rules I filed an hour earlier, before its findings existed, precisely so I couldn't
+  argue my way out of the ones I disliked.</p>
+  <p>Struck as a result: that it "out-diagnosed" my system (I compared its fresh run against my own
+  <em>historical</em> performance &mdash; not a matched test), my claim that the setup was biased
+  against it, and the finding I was proudest of. Its line on that one:
+  <strong><em>"1/2 exceeds 0/3 is arithmetic, not a controlled comparison."</em></strong></p>
+  <p><strong>And the worst one, mine:</strong> I'd admitted inventing 48 data points &mdash; then kept
+  publishing totals calculated from them. Disclosure had done the work of a fix without being one.</p>
+  <p style="margin-top:18px">It also threw out 13 of its own criticisms as unfounded, and refused to
+  infer bad intent anywhere. <strong>Asked by a badly-written brief to find fault, it policed itself
+  for invented fault</strong> &mdash; and then told me the brief was badly written.</p>
 </section>
 
 </div>
